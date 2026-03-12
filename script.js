@@ -20,15 +20,10 @@ document.getElementById("ttsSection").classList.add("hidden");
 
 async function speak(){
 
-let text = document.getElementById("ttsText").value;
-let voice = document.getElementById("voice").value;
+let text=document.getElementById("ttsText").value;
+let voice=document.getElementById("voice").value;
 
-if(!text){
-alert("Teks kosong");
-return;
-}
-
-let res = await fetch("/api/tts",{
+let res=await fetch("/api/tts",{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -36,31 +31,30 @@ headers:{
 body:JSON.stringify({text,voice})
 });
 
-let blob = await res.blob();
+let blob=await res.blob();
 
-let audioURL = URL.createObjectURL(blob);
+let audioURL=URL.createObjectURL(blob);
 
-audioPlayer = new Audio(audioURL);
+audioPlayer=new Audio(audioURL);
 
 audioPlayer.play();
 
-document.getElementById("status").innerText="Status: Memutar suara";
+audioPlayer.ontimeupdate=function(){
+
+let progress=(audioPlayer.currentTime/audioPlayer.duration)*100;
+
+document.getElementById("progress").style.width=progress+"%";
+
+let seconds=Math.floor(audioPlayer.currentTime);
+let minutes=Math.floor(seconds/60);
+seconds=seconds%60;
+
+document.getElementById("time").innerText=
+minutes+":"+(seconds<10?"0":"")+seconds;
 
 }
 
-function stopAudio(){
-
-if(audioPlayer){
-
-audioPlayer.pause();
-audioPlayer.currentTime = 0;
-
-document.getElementById("status").innerText="Status: Audio dihentikan";
-
 }
-
-}
-
 
 // DOWNLOAD
 
@@ -101,6 +95,8 @@ recognition.start();
 
 document.getElementById("status").innerText="Status: Mendengarkan";
 
+document.getElementById("micBtn").classList.add("mic-active");
+
 recognition.onresult=function(e){
 
 document.getElementById("sttResult").value=e.results[0][0].transcript;
@@ -109,14 +105,15 @@ document.getElementById("sttResult").value=e.results[0][0].transcript;
 
 }
 
-function stopSTT(){
+function stopAudio(){
 
-if(recognition){
+if(audioPlayer){
+audioPlayer.pause();
+audioPlayer.currentTime=0;
 
-recognition.stop();
-
-document.getElementById("status").innerText="Status: Berhenti";
-
+document.getElementById("micBtn").classList.remove("mic-active");
+document.getElementById("progress").style.width="0%";
+document.getElementById("time").innerText="0:00";
 }
 
 }
