@@ -22,6 +22,17 @@
 
 <textarea id="ttsText" placeholder="Ketik teks..."></textarea>
 
+<div class="player">
+
+<div class="progress-container">
+<div id="progress"></div>
+</div>
+
+<span id="time">0:00</span>
+
+</div>
+
+
 <select id="voice">
 <option value="21m00Tcm4TlvDq8ikWAM">Rachel</option>
 <option value="AZnzlk1XvdvUeBnXmlld">Domi</option>
@@ -41,7 +52,7 @@
 
 <div id="sttSection" class="hidden">
 
-<button onclick="startListening()">Start Record</button>
+<button onclick="startListening()" id="micBtn">🎤 Start Record</button>
 <button onclick="stopSTT()">Stop</button>
 
 <textarea id="sttResult" placeholder="Hasil suara..."></textarea>
