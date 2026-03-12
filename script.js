@@ -87,34 +87,45 @@ link.click();
 
 function startListening(){
 
-recognition=new(window.SpeechRecognition||window.webkitSpeechRecognition)();
+recognition = new(window.SpeechRecognition || window.webkitSpeechRecognition)();
 
-recognition.lang="id-ID";
+recognition.lang = "id-ID";
 
 recognition.start();
 
-document.getElementById("status").innerText="Status: Mendengarkan";
+document.getElementById("status").innerText = "Status: Mendengarkan";
 
 document.getElementById("micBtn").classList.add("mic-active");
 
-recognition.onresult=function(e){
 
-document.getElementById("sttResult").value=e.results[0][0].transcript;
+recognition.onresult = function(e){
+
+document.getElementById("sttResult").value =
+e.results[0][0].transcript;
+
+};
+
+
+recognition.onend = function(){
+
+document.getElementById("micBtn").classList.remove("mic-active");
+document.getElementById("status").innerText = "Status: Rekaman berhenti";
 
 };
 
 }
 
-function stopAudio(){
+function stopSTT(){
 
-if(audioPlayer){
-audioPlayer.pause();
-audioPlayer.currentTime=0;
+if(recognition){
+
+recognition.stop();
+
+}
 
 document.getElementById("micBtn").classList.remove("mic-active");
-document.getElementById("progress").style.width="0%";
-document.getElementById("time").innerText="0:00";
-}
+
+document.getElementById("status").innerText = "Status: Rekaman dihentikan";
 
 }
 
