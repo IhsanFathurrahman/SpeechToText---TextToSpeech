@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Text Voice App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>AI Text ↔ Voice</h2>
+
+<div class="tabs">
+<button onclick="showTTS()">TTS</button>
+<button onclick="showSTT()">STT</button>
+</div>
+
+<div id="ttsSection">
+
+<textarea id="ttsText" placeholder="Ketik teks..."></textarea>
+
+<select id="voice">
+<option value="21m00Tcm4TlvDq8ikWAM">Rachel</option>
+<option value="AZnzlk1XvdvUeBnXmlld">Domi</option>
+<option value="EXAVITQu4vr4xnSDxMaL">Bella</option>
+<option value="ErXwobaYiN019PkySvjV">Antoni</option>
+<option value="MF3mGyEYCl7XYWbV9V6O">Elli</option>
+</select>
+
+<br>
+
+<button onclick="speak()">Play</button>
+<button onclick="downloadAudio()">Download MP3</button>
+
+</div>
+
+
+<div id="sttSection" class="hidden">
+
+<button onclick="startListening()">Start Record</button>
+<button onclick="stopSTT()">Stop</button>
+
+<textarea id="sttResult" placeholder="Hasil suara..."></textarea>
+
+<button onclick="copySTT()">Copy Text</button>
+
+</div>
+
+<p id="status">Status: Idle</p>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
