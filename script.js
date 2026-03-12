@@ -115,7 +115,7 @@ document.getElementById("status").innerText = "Status: Rekaman berhenti";
 
 }
 
-function stopSTT(){
+function stopAudio(){
 
 if(recognition){
 
